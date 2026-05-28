@@ -1,0 +1,406 @@
+/* ===================================================
+   TEMA: PORTFÓLIO HERO / TOKUSATSU / HOMEM-ARANHA
+=================================================== */
+
+:root {
+    --bg-main: #0a0b10;       
+    --bg-card: #141622;       
+    --text-main: #ffffff;     
+    --text-muted: #a2adb8;    
+    
+    /* Paleta dos Heróis */
+    --hero-red: #E60012;      
+    --hero-blue: #0047BB;     
+    --rider-green: #00FF41;   
+    --spark-gold: #FFD700;    
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    background-image: 
+        linear-gradient(rgba(230, 0, 18, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 71, 187, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* --- NAVBAR (MENU) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(10, 11, 16, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--hero-red);
+    box-shadow: 0 4px 15px rgba(230, 0, 18, 0.2);
+    transition: padding 0.3s, background-color 0.3s;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--hero-blue);
+    text-shadow: 0 0 10px var(--hero-blue);
+}
+
+.navbar nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.navbar nav a:hover {
+    color: var(--rider-green);
+    text-shadow: 0 0 8px var(--rider-green);
+}
+
+/* --- SEÇÕES GERAIS --- */
+.container {
+    padding: 120px 8% 60px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 36px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-left: 6px solid var(--hero-red);
+    padding-left: 15px;
+    text-shadow: 3px 3px 0px rgba(0, 71, 187, 0.6);
+}
+
+.section-instruction {
+    text-align: center; 
+    color: var(--text-muted); 
+    margin-bottom: 30px; 
+    text-transform: uppercase; 
+    font-size: 13px; 
+    letter-spacing: 1px;
+}
+
+/* ===================================================
+   HERO SECTION: O CARD COM IMAGEM DE FUNDO
+=================================================== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 5% 0 5%;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 900px;
+    padding: 80px 40px;
+    border-radius: 12px;
+    text-align: center;
+    
+    background-image: url('assets/image/bg-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    border: 3px solid var(--hero-red);
+    box-shadow: 0 10px 30px rgba(230, 0, 18, 0.4), 0 0 15px rgba(0, 71, 187, 0.3);
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+
+/* ===================================================
+   IMAGEM DE PERFIL NO CARD HERO (FORA DO MEDIA QUERY)
+=================================================== */
+.hero-profile-img {
+    width: 100%;           /* Ocupa a largura interna disponível do card */
+    max-width: 650px;      /* Limite máximo para a imagem não ficar gigante em monitores muito grandes */
+    height: auto;          /* O SEGREDO: Mantém a proporção original da foto (sem amassar ou cortar) */
+    
+    /* Centraliza a imagem horizontalmente dentro do card */
+    display: block;
+    margin: 0 auto 35px auto; 
+    
+    /* Cantos levemente arredondados para combinar com o card (mude para 0 se quiser cantos retos) */
+    border-radius: 6px;
+    
+    /* Borda e Brilho Heroico */
+    border: 3px solid var(--hero-red);
+    box-shadow: 0 8px 20px rgba(230, 0, 18, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* Efeito sutil ao passar o mouse */
+.hero-profile-img:hover {
+    transform: scale(1.02); /* Um zoom bem leve e elegante */
+    border-color: var(--rider-green);
+    box-shadow: 0 8px 25px rgba(0, 255, 65, 0.5);
+}
+
+/* Sombras fortes no texto para garantir a leitura */
+.hero-content h1 {
+    font-size: 56px;
+    margin-bottom: 15px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.9), 0px 2px 5px rgba(0, 0, 0, 1);
+}
+
+.hero-content p {
+    font-size: 22px;
+    margin-bottom: 40px;
+    color: #ffffff;
+    font-weight: bold;
+    text-shadow: 0px 3px 10px rgba(0, 0, 0, 0.9), 0px 1px 3px rgba(0, 0, 0, 1);
+}
+
+.text-highlight {
+    color: var(--hero-red);
+    text-shadow: 2px 2px 0px var(--hero-blue), 0 0 15px rgba(0, 0, 0, 0.9);
+}
+
+/* --- BOTÕES --- */
+.btn-primary {
+    display: inline-block;
+    background: linear-gradient(45deg, var(--hero-red), var(--hero-blue));
+    color: white;
+    padding: 14px 35px;
+    text-decoration: none;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(230, 0, 18, 0.5);
+    text-shadow: none; 
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, var(--rider-green), #00cc33);
+    color: var(--bg-main);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0 25px var(--rider-green);
+    clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 10% 100%, 0 70%);
+}
+
+/* ===================================================
+   MINI CARDS DE TECNOLOGIA (ARSENAL)
+=================================================== */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    align-items: start; 
+}
+
+.tech-card {
+    background-color: var(--bg-card);
+    border: 2px solid #232736;
+    padding: 30px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+}
+
+.tech-card:hover {
+    border-color: var(--hero-blue);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 71, 187, 0.2);
+    background-color: #191c2b;
+}
+
+.tech-icon {
+    font-size: 52px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover .tech-icon,
+.tech-card.active .tech-icon {
+    color: var(--hero-red);
+    filter: drop-shadow(0 0 8px var(--hero-red));
+}
+
+.tech-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tech-card.active {
+    border-color: var(--rider-green);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+    background-color: #151a24;
+}
+
+.tech-card.active .tech-icon {
+    color: var(--rider-green);
+    filter: drop-shadow(0 0 10px var(--rider-green));
+}
+
+.tech-desc {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+.tech-desc-inner {
+    overflow: hidden;
+}
+
+.tech-desc-inner p {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-top: 15px;
+    border-top: 2px dashed rgba(255, 215, 0, 0.3);
+    margin-top: 12px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.tech-card.active .tech-desc {
+    grid-template-rows: 1fr;
+}
+
+/* --- CONTATO E FOOTER --- */
+.contact-section {
+    text-align: center;
+}
+
+.contact-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 28px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 900;
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 0px var(--hero-red);
+}
+
+.contact-link:hover {
+    color: var(--spark-gold);
+    text-shadow: 0 0 15px var(--spark-gold), 2px 2px 0px var(--hero-blue);
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+    border-top: 2px solid #141622;
+    font-size: 14px;
+    background-color: #06070a;
+}
+
+/* ===================================================
+   RESPONSIVIDADE (MOBILE & TABLET)
+=================================================== */
+.menu-btn {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1001;
+}
+
+.menu-btn .bar {
+    width: 28px;
+    height: 4px;
+    background-color: var(--hero-red);
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 8px var(--hero-red);
+}
+
+@media screen and (max-width: 768px) {
+    .menu-btn {
+        display: flex;
+    }
+
+    .navbar nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: rgba(10, 11, 16, 0.98);
+        flex-direction: column;
+        align-items: center;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-bottom: 2px solid var(--hero-blue);
+    }
+
+    .navbar nav.active {
+        max-height: 380px;
+        padding-bottom: 20px;
+    }
+
+    .navbar nav a {
+        margin: 18px 0;
+        display: block;
+        font-size: 19px;
+    }
+
+    /* Ajuste do Card Hero no Celular */
+    .hero-section {
+        padding-top: 120px; 
+    }
+    
+    .hero-content {
+        padding: 50px 20px; 
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+    }
+    
+    .hero-content p {
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 100px 5% 40px 5%;
+    }
+    
+    h2 {
+        font-size: 28px;
+    }
+    
+    .contact-link {
+        font-size: 22px; 
+    }
+}
