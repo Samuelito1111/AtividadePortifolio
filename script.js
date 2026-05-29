@@ -17,12 +17,10 @@ const navMenu = document.getElementById('nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 
 if (menuBtn && navMenu) {
-    // Abre ou fecha o menu lateral mobile
     menuBtn.addEventListener('click', () => {
         navMenu.classList.toggle('active');
     });
 
-    // Fecha o menu automaticamente após clicar em um link de seção
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (navMenu.classList.contains('active')) {
@@ -37,15 +35,32 @@ const techCards = document.querySelectorAll('.tech-card');
 
 techCards.forEach(card => {
     card.addEventListener('click', () => {
-        // Guarda se o card que você clicou já estava aberto antes do clique
         const isAlreadyActive = card.classList.contains('active');
 
-        // Fecha e recolhe o texto de todos os cards antes de abrir o novo
         techCards.forEach(c => c.classList.remove('active'));
 
-        // Se ele não estava ativo antes, "morfa" e ativa o atual!
         if (!isAlreadyActive) {
             card.classList.add('active');
         }
     });
+});
+
+// --- 4. NOVO: INTERSECTION OBSERVER (SCROLL REVEAL) ---
+// Adiciona efeito dinâmico onde os elementos surgem ao rolar a página
+const revealElements = document.querySelectorAll('.reveal');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            // Uma vez revelado, cancela a observação para melhorar a performance
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.15 // Ativa quando 15% do elemento estiver visível
+});
+
+revealElements.forEach(element => {
+    revealObserver.observe(element);
 });
