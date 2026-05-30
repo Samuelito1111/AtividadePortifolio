@@ -59,3 +59,22 @@ const revealObserver = new IntersectionObserver((entries) => {
 revealElements.forEach(element => {
     revealObserver.observe(element);
 });
+
+// --- 5. CONTROLE DE TEMA (DARK / LIGHT MODE) COM MEMÓRIA LOCAL ---
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+// Verifica se o usuário já visitou o site e escolheu o modo claro anteriormente
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        // Alterna a classe no body
+        const isLightMode = document.body.classList.toggle('light-mode');
+        
+        // Grava a nova preferência do usuário no navegador
+        localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    });
+}

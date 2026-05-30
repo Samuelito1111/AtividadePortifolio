@@ -752,3 +752,108 @@ footer {
         text-align: center;
     }
 }
+
+/* ===================================================
+   MODO CLARO (SOBREPOSIÇÃO DE VARIÁVEIS)
+=================================================== */
+body.light-mode {
+    --bg-main: #f0eff4;
+    --bg-card: #ffffff;
+    --text-main: #121016;
+    --text-muted: #5a5a66;
+    --black: #f0eff4;
+    --alabaster-grey: #121016;
+
+    /* Ajuste fino na opacidade da grade para contrastar no fundo claro */
+    background-image: 
+        linear-gradient(rgba(136, 3, 1, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 44, 94, 0.08) 1px, transparent 1px);
+}
+
+/* Ajustes finos de legibilidade para o Modo Claro */
+body.light-mode .hero-content {
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 239, 244, 0.9)), url('assets/image/bg-hero.jpg');
+    border-color: var(--dark-amethyst);
+    box-shadow: 0 10px 35px rgba(63, 44, 94, 0.15);
+}
+body.light-mode .hero-content h1 { color: var(--text-main); }
+body.light-mode .navbar { background: rgba(240, 239, 244, 0.85); }
+body.light-mode .tech-card { border-color: #d1cbdc; }
+body.light-mode .project-card { border-color: #d1cbdc; }
+
+/* Transição global suave para propriedades de tema */
+body, .navbar, .hero-content, .tech-card, .project-card, footer, h1, h2, h3, p, a, i {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                background-image 0.4s ease;
+}
+
+/* ===================================================
+   ESTILIZAÇÃO E ANIMAÇÃO DO BOTÃO DE TEMA
+=================================================== */
+.theme-toggle-btn {
+    background: transparent;
+    border: 2px solid var(--blood-red);
+    color: var(--text-main);
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: 20px;
+    box-shadow: 0 0 8px rgba(136, 3, 1, 0.3);
+    transition: all 0.3s ease;
+    
+    /* Mesma pegada angular de herói usada nos botões/cards */
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+.theme-toggle-btn:hover {
+    border-color: var(--saffron);
+    box-shadow: 0 0 12px var(--saffron);
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn svg {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+    /* Transição casada de rotação, opacidade e escala */
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+/* Estado padrão (Modo Escuro Ativo: Esconde o Sol, mostra a Lua) */
+.theme-toggle-btn .sun-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.2);
+}
+.theme-toggle-btn .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    color: var(--saffron);
+}
+
+/* Estado Alternado (Modo Claro Ativo: Mostra o Sol, esconde a Lua) */
+body.light-mode .theme-toggle-btn .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    color: var(--golden-earth);
+}
+body.light-mode .theme-toggle-btn .moon-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.2);
+}
+
+/* Ajuste fino para não quebrar o alinhamento no mobile */
+@media screen and (max-width: 768px) {
+    .theme-toggle-btn {
+        margin-right: 15px;
+    }
+}
