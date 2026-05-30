@@ -1,8 +1,7 @@
 /* ===================================================
    FONTES DO PROJETO (HERO & READABILITY)
+   Carregadas via <link> no HTML — sem @import duplicado
 =================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 @font-face {
   font-family: 'Stagera';
@@ -50,7 +49,7 @@ body {
 }
 
 /* ===================================================
-   BACKGROUND ANIMADO (LOGOS HORIZONTAIS)
+   BACKGROUND ANIMADO (6 FILEIRAS ALTERNADAS)
 =================================================== */
 .bg-fx {
     position: fixed;
@@ -58,10 +57,10 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 0; /* Mudei para 0 para não sumir atrás da cor do body */
-    pointer-events: none; /* Garante que os botões por cima sejam clicáveis */
+    z-index: 0; 
+    pointer-events: none; 
     overflow: hidden;
-    opacity: 0.12; /* Aumentado ligeiramente para ficar legível no escuro */
+    opacity: 0.25; /* Aumentado para mais destaque */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -77,7 +76,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: clamp(40px, 6vw, 80px); /* Gap otimizado para preencher telas largas */
+    gap: clamp(40px, 6vw, 80px);
     width: max-content;
     flex-wrap: nowrap;
 }
@@ -86,17 +85,108 @@ body {
     height: clamp(50px, 6vw, 80px); 
     width: auto;
     flex-shrink: 0;
-    will-change: transform;
-    filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5524%) hue-rotate(353deg) brightness(90%) contrast(112%);
+    will-change: transform, filter;
+    /* Cada fileira terá sua própria animação de cor (definida abaixo) */
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
 }
 
-/* Todas as faixas indo da direita pra esquerda, com tempos diferentes para gerar profundidade */
-.track-left { animation: scroll-left 40s linear infinite; }
-.track-right { animation: scroll-left 50s linear infinite; }
+/* ===================================================
+   ANIMAÇÕES DE CORES DIFERENTES PARA AS FILEIRAS
+   Ordem 1: blood-red -> saffron -> dark-amethyst
+   Ordem 2: saffron -> dark-amethyst -> blood-red
+   Ordem 3: dark-amethyst -> blood-red -> saffron
+=================================================== */
+@keyframes color-cycle-1 {
+    0%, 15% {
+        filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5524%) hue-rotate(353deg) brightness(90%) contrast(112%);
+    }
+    42%, 58% {
+        filter: brightness(0) saturate(100%) invert(70%) sepia(78%) saturate(2132%) hue-rotate(3deg) brightness(101%) contrast(94%);
+    }
+    85%, 100% {
+        filter: brightness(0) saturate(100%) invert(20%) sepia(48%) saturate(1915%) hue-rotate(241deg) brightness(85%) contrast(95%);
+    }
+}
 
+@keyframes color-cycle-2 {
+    0%, 15% {
+        /* saffron */
+        filter: brightness(0) saturate(100%) invert(70%) sepia(78%) saturate(2132%) hue-rotate(3deg) brightness(101%) contrast(94%);
+    }
+    42%, 58% {
+        /* dark-amethyst */
+        filter: brightness(0) saturate(100%) invert(20%) sepia(48%) saturate(1915%) hue-rotate(241deg) brightness(85%) contrast(95%);
+    }
+    85%, 100% {
+        /* blood-red */
+        filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5524%) hue-rotate(353deg) brightness(90%) contrast(112%);
+    }
+}
+
+@keyframes color-cycle-3 {
+    0%, 15% {
+        /* dark-amethyst */
+        filter: brightness(0) saturate(100%) invert(20%) sepia(48%) saturate(1915%) hue-rotate(241deg) brightness(85%) contrast(95%);
+    }
+    42%, 58% {
+        /* blood-red */
+        filter: brightness(0) saturate(100%) invert(13%) sepia(85%) saturate(5524%) hue-rotate(353deg) brightness(90%) contrast(112%);
+    }
+    85%, 100% {
+        /* saffron */
+        filter: brightness(0) saturate(100%) invert(70%) sepia(78%) saturate(2132%) hue-rotate(3deg) brightness(101%) contrast(94%);
+    }
+}
+
+/* Distribuição das animações de cor por fileira */
+.bg-fx .logo-track:nth-child(1) img { animation-name: color-cycle-1; }
+.bg-fx .logo-track:nth-child(2) img { animation-name: color-cycle-2; }
+.bg-fx .logo-track:nth-child(3) img { animation-name: color-cycle-3; }
+.bg-fx .logo-track:nth-child(4) img { animation-name: color-cycle-1; } /* repete a ordem 1 */
+.bg-fx .logo-track:nth-child(5) img { animation-name: color-cycle-2; } /* repete a ordem 2 */
+.bg-fx .logo-track:nth-child(6) img { animation-name: color-cycle-3; } /* repete a ordem 3 */
+
+/* Delays para defasar ainda mais as cores entre as fileiras */
+.bg-fx .logo-track:nth-child(1) img { animation-delay: 0s; }
+.bg-fx .logo-track:nth-child(2) img { animation-delay: -2s; }
+.bg-fx .logo-track:nth-child(3) img { animation-delay: -4s; }
+.bg-fx .logo-track:nth-child(4) img { animation-delay: -6s; }
+.bg-fx .logo-track:nth-child(5) img { animation-delay: -8s; }
+.bg-fx .logo-track:nth-child(6) img { animation-delay: -10s; }
+
+/* Velocidades de rolagem alternadas por fileira */
+.bg-fx .logo-track:nth-child(1) { animation-duration: 18s; }
+.bg-fx .logo-track:nth-child(2) { animation-duration: 22s; }
+.bg-fx .logo-track:nth-child(3) { animation-duration: 16s; }
+.bg-fx .logo-track:nth-child(4) { animation-duration: 20s; }
+.bg-fx .logo-track:nth-child(5) { animation-duration: 14s; }
+.bg-fx .logo-track:nth-child(6) { animation-duration: 24s; }
+
+/* Direção das fileiras */
+.track-left {
+    animation-name: scroll-left;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.track-right {
+    animation-name: scroll-right;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Animação para a ESQUERDA */
 @keyframes scroll-left {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); } 
+}
+
+/* Animação para a DIREITA (começa em -50% e vai para 0) */
+@keyframes scroll-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); } 
 }
 
 /* --- ANIMAÇÃO DE ENTRADA AO ROLAR --- */
@@ -115,7 +205,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px clamp(4%, 8vw, 8%); /* Padding responsivo */
+    padding: 20px clamp(4%, 8vw, 8%);
     background: rgba(6, 5, 3, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -125,12 +215,18 @@ body {
     z-index: 1000;
     border-bottom: 2px solid var(--blood-red);
     box-shadow: 0 4px 15px rgba(136, 3, 1, 0.25);
-    transition: padding 0.3s, background-color 0.3s;
+    transition: padding 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+/* Classe aplicada via JS ao rolar a página */
+.navbar-scrolled {
+    padding: 12px 8%;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(230, 0, 18, 0.1);
 }
 
 .logo {
     font-family: var(--font-hero);
-    font-size: clamp(24px, 3vw, 32px); /* Fonte responsiva */
+    font-size: clamp(24px, 3vw, 32px);
     letter-spacing: 2px;
 }
 
@@ -157,7 +253,6 @@ body {
 
 /* --- SEÇÕES GERAIS --- */
 .container {
-    /* Padding topo baseia-se na altura da tela para fugir do header */
     padding: clamp(80px, 12vh, 120px) clamp(5%, 8vw, 8%) clamp(50px, 8vh, 80px);
     max-width: 1200px;
     margin: 0 auto;
@@ -165,7 +260,7 @@ body {
 
 h2 {
     font-family: var(--font-hero);
-    font-size: clamp(32px, 5vw, 42px); /* Títulos escaláveis */
+    font-size: clamp(32px, 5vw, 42px);
     margin-bottom: clamp(15px, 3vw, 25px);
     letter-spacing: 2px;
     border-left: 6px solid var(--blood-red);
@@ -196,7 +291,6 @@ h2 {
 .hero-content {
     width: 100%;
     max-width: 1100px;
-    /* Padding dinâmico para não estrangular o conteúdo */
     padding: clamp(30px, 6vw, 60px) clamp(20px, 5vw, 50px);
     border-radius: 12px;
     display: grid;
@@ -210,7 +304,8 @@ h2 {
     
     border: 3px solid var(--blood-red);
     box-shadow: 0 10px 35px rgba(136, 3, 1, 0.35), 0 0 20px rgba(63, 44, 94, 0.2);
-    /* Borda chanfrada proporcional ao tamanho da tela */
+    /* Fallback + versão com clamp() */
+    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
     clip-path: polygon(clamp(15px, 3vw, 30px) 0, 100% 0, 100% calc(100% - clamp(15px, 3vw, 30px)), calc(100% - clamp(15px, 3vw, 30px)) 100%, 0 100%, 0 clamp(15px, 3vw, 30px));
 }
 
@@ -229,7 +324,7 @@ h2 {
 
 .hero-content h1 {
     font-family: var(--font-hero);
-    font-size: clamp(38px, 6vw, 64px); /* Evita quebra exagerada no mobile */
+    font-size: clamp(38px, 6vw, 64px);
     line-height: 1.1;
     margin-bottom: 15px;
     letter-spacing: 1px;
@@ -244,7 +339,7 @@ h2 {
 
 .hero-tags {
     display: flex;
-    flex-wrap: wrap; /* Permite quebrar linha se não couber */
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -277,7 +372,7 @@ h2 {
 
 .profile-frame {
     width: 100%;
-    max-width: clamp(250px, 30vw, 340px); /* Cresce com a tela, tem limite de 340px */
+    max-width: clamp(250px, 30vw, 340px);
     animation: float 5s ease-in-out infinite; 
 }
 
@@ -314,7 +409,6 @@ h2 {
     text-decoration: none;
     text-transform: uppercase;
     border-radius: 4px;
-    /* Recorte proporcional */
     clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(136, 3, 1, 0.4);
@@ -385,7 +479,6 @@ h2 {
 =================================================== */
 .tech-grid {
     display: grid;
-    /* Adaptação inteligente: min 200px (mobile) até fração livre */
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: clamp(15px, 3vw, 30px);
     margin-top: 30px;
@@ -402,7 +495,8 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Chanfro com variação segura */
+    /* Fallback + versão com clamp() */
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     clip-path: polygon(clamp(10px, 2vw, 15px) 0, 100% 0, 100% calc(100% - clamp(10px, 2vw, 15px)), calc(100% - clamp(10px, 2vw, 15px)) 100%, 0 100%, 0 clamp(10px, 2vw, 15px));
 }
 
@@ -469,7 +563,6 @@ h2 {
 =================================================== */
 .projects-grid {
     display: grid;
-    /* Previne estourar no mobile mantendo 100% de largura quando muito pequeno */
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); 
     gap: clamp(20px, 4vw, 40px);
     margin-top: 30px;
@@ -485,7 +578,7 @@ h2 {
     justify-content: space-between;
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    height: 100%; /* Padroniza altura dos cards */
+    height: 100%;
 }
 
 .project-card:hover {
@@ -531,7 +624,7 @@ h2 {
     font-size: clamp(14px, 2vw, 18px);
     padding: 8px 20px;
     align-self: flex-start;
-    margin-top: auto; /* Empurra o botão pro fim do card */
+    margin-top: auto;
 }
 
 /* --- CONTATO E FOOTER --- */
@@ -557,7 +650,7 @@ h2 {
     letter-spacing: 1px;
     transition: all 0.3s ease;
     text-shadow: 2px 2px 0px var(--blood-red);
-    word-break: break-all; /* Impede que o email estoure a div no celular */
+    word-break: break-all;
 }
 
 .contact-link i {
@@ -590,6 +683,9 @@ footer {
     flex-direction: column;
     gap: 6px;
     z-index: 1001;
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .menu-btn .bar {
@@ -615,7 +711,6 @@ footer {
         margin: 0 auto 30px auto;
     }
     
-    /* Inverte a ordem no mobile para a imagem subir */
     .hero-text-side { order: 2; }
     .hero-img-side { order: 1; margin-bottom: 20px; }
 }
@@ -654,6 +749,6 @@ footer {
     }
     
     .about-text-side p {
-        text-align: center; /* Fica mais legível no mobile */
+        text-align: center;
     }
 }

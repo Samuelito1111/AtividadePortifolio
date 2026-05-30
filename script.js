@@ -1,30 +1,27 @@
-// --- 1. CONTROLE DO NAVBAR AO ROLAR A PÁGINA ---
+// --- 1. CONTROLE DO NAVBAR AO ROLAR A PÁGINA (via classe CSS) ---
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    
-    if (window.scrollY > 50) {
-        navbar.style.padding = '12px 8%';
-        navbar.style.boxShadow = '0 4px 25px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(230, 0, 18, 0.1)';
-    } else {
-        navbar.style.padding = '20px 8%';
-        navbar.style.boxShadow = '0 4px 15px rgba(230, 0, 18, 0.2)';
-    }
+    // Alterna a classe em vez de manipular estilos inline
+    navbar.classList.toggle('navbar-scrolled', window.scrollY > 50);
 });
 
-// --- 2. CONTROLE DO MENU RESPONSIVO (HAMBÚRGUER) ---
+// --- 2. CONTROLE DO MENU RESPONSIVO (HAMBÚRGUER) COM ACESSIBILIDADE ---
 const menuBtn = document.getElementById('menu-btn');
 const navMenu = document.getElementById('nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 
 if (menuBtn && navMenu) {
     menuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
+        const isActive = navMenu.classList.toggle('active');
+        // Atualiza aria-expanded para leitores de tela
+        menuBtn.setAttribute('aria-expanded', isActive);
     });
 
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
             }
         });
     });
@@ -45,20 +42,18 @@ techCards.forEach(card => {
     });
 });
 
-// --- 4. NOVO: INTERSECTION OBSERVER (SCROLL REVEAL) ---
-// Adiciona efeito dinâmico onde os elementos surgem ao rolar a página
+// --- 4. INTERSECTION OBSERVER (SCROLL REVEAL) ---
 const revealElements = document.querySelectorAll('.reveal');
 
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('show');
-            // Uma vez revelado, cancela a observação para melhorar a performance
             revealObserver.unobserve(entry.target);
         }
     });
 }, {
-    threshold: 0.15 // Ativa quando 15% do elemento estiver visível
+    threshold: 0.15
 });
 
 revealElements.forEach(element => {
